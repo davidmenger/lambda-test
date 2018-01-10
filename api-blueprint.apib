@@ -1,0 +1,119 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Lambda test dummy API
+
+Api blueprint for testing lambda-test NPM module.
+
+## Data structures
+
+## User (object)
+
++ username: mtakac (string, required)
++ email: marek.takac@pragonauts.com (string, required)
+
+## Post (object)
+
++ title: My post title (string, required)
++ content: My post content (string, required)
+
+## Error404 (object)
+
++ code: 404 (number, required)
++ message: Not found (string, required)
+
+## Error422 (object)
+
++ code: 422 (number, required)
++ message: Unprocessable entity (string, required)
+
+
+# Group Users
+
+## Users collection [/users]
+
+### List all users [GET]
+
++ Request List all users (application/json)
+    + Headers
+
+             Accept: application/json
+             X-Auth-Token: 123xyz
+
++ Response 200 (application/json)
+    + Attributes (array)
+        + (User)
+
+### Create user [POST]
+
++ Request Create user (application/json)
+    + Headers
+
+            Accept: application/json
+            X-Auth-Token: 123xyz
+
+    + Attributes (User)
+
++ Response 201 (application/json)
+    + Attributes (User)
+
++ Response 422 (application/json)
+    + Attributes (Error422)
+
+## Users Item [/users/{id}]
+
++ Parameters
+    + id: 1 (string, required) - ID of the user
+
+### Delete user by id [DELETE]
+
++ Request Delete user by id (application/json)
+    + Headers
+
+            Accept: application/json
+            X-Auth-Token: 123xyz
+
++ Response 204
+
++ Response 404 (application/json)
+    + Attributes (Error404)
+
+# Group Posts
+
+## Posts Item [/posts/{id}]
+
++ Parameters
+    + id: 12 (string, required) - ID of the post
+
+### Get post by id [GET]
+
++ Request Get post by id (application/json)
+    + Headers
+
+            Accept: application/json
+            X-Auth-Token: 123xyz
+
++ Response 200 (application/json)
+    + Attributes (Post)
+
++ Response 404 (application/json)
+    + Attributes (Error404)
+
+### Update post by id [PUT]
+
++ Request Update post by id (application/json)
+    + Headers
+
+            Accept: application/json
+            X-Auth-Token: 123xyz
+
+    + Attributes (Post)
+
++ Response 200 (application/json)
+    + Attributes (Post)
+
++ Response 404 (application/json)
+    + Attributes (Error404)
+
++ Response 422 (application/json)
+    + Attributes (Error422)
