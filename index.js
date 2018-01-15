@@ -1,5 +1,9 @@
 'use strict';
 
-const NpmModule = require('./lib/npm-module');
+const HandlerTester = require('./lib/handler-tester');
 
-module.exports = { NpmModule };
+module.exports = {
+    handlerTester: (handler) => {
+        return new HandlerTester(handler);
+    }
+};
