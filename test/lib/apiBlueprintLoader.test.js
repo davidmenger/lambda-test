@@ -2,7 +2,7 @@
 
 const { assert } = require('chai');
 
-const ApiBlueprintLoader = require('../../lib/api-blueprint-loader');
+const ApiBlueprintLoader = require('../../lib/apiBlueprintLoader');
 
 describe('ApiBlueprintLoader', () => {
     let api;
@@ -13,7 +13,7 @@ describe('ApiBlueprintLoader', () => {
 
     describe('code', () => {
         it('should return array', () => {
-            console.log(api[0].responses['200']);
+            // console.log(api[0].responses['200']);
             assert.typeOf(api, 'array');
         });
 

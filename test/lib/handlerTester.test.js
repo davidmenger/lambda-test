@@ -2,18 +2,18 @@
 
 const { assert } = require('chai');
 
-const HandlerTester = require('../../lib/handler-tester');
+const HandlerTester = require('../../lib/handlerTester');
 
 describe('HandlerTester', () => {
     let handler;
     let tester;
 
     beforeEach(() => {
-        handler = () => {
-            return Promise.resolve()
+        handler = () => (
+            Promise.resolve()
                 .then(() => 'Resolved')
-                .catch(() => 'Cathed');
-        }
+                .catch(() => 'Cathed')
+        );
 
         tester = new HandlerTester(handler);
     });
@@ -32,7 +32,7 @@ describe('HandlerTester', () => {
             assert.isNull(tester._queryStringParameters);
             assert.isNull(tester._pathParameters);
             assert.isNull(tester._body);
-        })
+        });
     });
 
     describe('queryStringParameters', () => {

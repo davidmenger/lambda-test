@@ -1,34 +1,45 @@
 {
-  "name": "lambda-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run test:lint && npm run test:backend && npm run test:coverage && npm run test:coverage:threshold",
-    "test:backend": "mocha --opts ./mocha.opts ./test/**/*.test.js",
-    "test:backend:watch": "npm run test:backend -- --watch",
-    "test:coverage": "istanbul cover _mocha -- --opts ./mocha.opts ./test/**/*.test.js",
-    "test:coverage:threshold": "node ./node_modules/.bin/istanbul check --branches 100 --functions 100 --statements 100 --lines 100  ./coverage/coverage.json",
-    "test:lint": "eslint ./lib/**/*.js"
-  },
-  "author": "Pragonauts <lukas.hykl@pragonauts.com> (https://pragonauts.com)",
-  "license": "ISC",
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^4.13.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-mocha": "^0.3.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsdoc": "^3.3.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-mocha": "^4.11.0",
-    "eslint-plugin-react": "^7.5.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
-    "mocha-istanbul": "^0.3.0"
-  },
-  "dependencies": {
-    "jsonschema": "^1.2.2",
-    "protagonist": "^1.5.2"
-  }
+    "name": "lambda-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm run test:lint && npm run test:unit && npm run test:coverage && npm run test:coverage:threshold",
+        "test:unit": "mocha ./test/**/*.test.js",
+        "test:unit:watch": "npm run test:unit -- --watch",
+        "test:coverage": "istanbul cover _mocha -- ./test/**/*.test.js",
+        "test:coverage:threshold": "node ./node_modules/.bin/istanbul check",
+        "test:lint": "eslint ./lib/**/*.js ./test/**/*.js",
+        "doc:generate": "node ./bin/makeApiDoc.js"
+    },
+    "author": "Marek Takac <takacmarek1221@gmail.com> (https://stackoverflow.com/users/story/872755)",
+    "license": "MIT",
+    "keywords": [
+        "javascript",
+        "es6",
+        "lambda",
+        "aws",
+        "nodejs",
+        "serverless",
+        "handler",
+        "testing"
+    ],
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "eslint": "^4.13.1",
+        "eslint-config-airbnb": "^16.1.0",
+        "eslint-mocha": "^0.3.1",
+        "eslint-plugin-import": "^2.8.0",
+        "eslint-plugin-jsdoc": "^3.3.0",
+        "eslint-plugin-jsx-a11y": "^6.0.3",
+        "eslint-plugin-mocha": "^4.11.0",
+        "eslint-plugin-react": "^7.5.1",
+        "istanbul": "^0.4.5",
+        "mocha": "^4.0.1",
+        "mocha-istanbul": "^0.3.0"
+    },
+    "dependencies": {
+        "jsonschema": "^1.2.2",
+        "protagonist": "^1.5.2"
+    }
 }

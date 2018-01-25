@@ -2,7 +2,7 @@
 
 const { assert } = require('chai');
 
-const ApiBlueprint = require('../../lib/api-blueprint');
+const ApiBlueprint = require('../../lib/apiBlueprint');
 
 describe('Api blueprint', () => {
     describe('constructor', () => {
@@ -147,7 +147,7 @@ describe('Api blueprint', () => {
                             $schema: 'http://json-schema.org/draft-04/schema#',
                             type: 'object',
                             properties: { username: String, email: String },
-                            required: [ 'username', 'email' ]
+                            required: ['username', 'email']
                         }
                     }
                 }
