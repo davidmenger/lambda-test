@@ -65,6 +65,22 @@ Api blueprint for testing lambda-test NPM module.
 + Parameters
     + id: 1 (string, required) - ID of the user
 
+### Get user [GET]
+
++ Request Create user (application/json)
+    + Headers
+
+            Accept: application/json
+            X-Auth-Token: 123xyz
+
+    + Attributes (User)
+
++ Response 200 (application/json)
+    + Attributes (User)
+
++ Response 422 (application/json)
+    + Attributes (Error422)
+
 ### Delete user by id [DELETE]
 
 + Request Delete user by id (application/json)

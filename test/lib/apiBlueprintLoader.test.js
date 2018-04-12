@@ -1,14 +1,15 @@
 'use strict';
 
 const { assert } = require('chai');
+const path = require('path');
 
-const ApiBlueprintLoader = require('../../lib/apiBlueprintLoader');
+const loadApiBlueprint = require('../../lib/loadApiBlueprint');
 
 describe('ApiBlueprintLoader', () => {
     let api;
 
     beforeEach(() => {
-        api = JSON.parse(ApiBlueprintLoader().code);
+        api = loadApiBlueprint(path.resolve(process.cwd(), './apiBlueprint.apib'));
     });
 
     describe('code', () => {
@@ -39,13 +40,13 @@ describe('ApiBlueprintLoader', () => {
         });
 
         it('should allow multiple responses for each endpoint', () => {
-            const { responses } = api[4];
+            const { responses } = api[5];
 
             assert.deepEqual(Object.keys(responses), ['200', '404', '422']);
         });
 
         it('should parse all endpoints documented in api blueprint', () => {
-            assert.lengthOf(api, 5);
+            assert.lengthOf(api, 6);
         });
     });
 });

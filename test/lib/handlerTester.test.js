@@ -2,26 +2,27 @@
 
 const { assert } = require('chai');
 
-const HandlerTester = require('../../lib/handlerTester');
+const HandlerTester = require('../../lib/HandlerTester');
 
 describe('HandlerTester', () => {
     let handler;
     let tester;
 
     beforeEach(() => {
-        handler = () => (
-            Promise.resolve()
-                .then(() => 'Resolved')
-                .catch(() => 'Cathed')
+        handler = (event, context, callback) => (
+            callback(null, {
+                statusCode: 200,
+                body: JSON.stringify({
+                    username: 'mtakac',
+                    email: 'marek.takac@pragonauts.com'
+                })
+            })
         );
 
-        tester = new HandlerTester(handler);
+        tester = new HandlerTester(handler, 200);
     });
 
     describe('constructor', () => {
-        it('should load api blueprint', () => {
-            assert.isNotEmpty(tester._api.actions);
-        });
 
         it('should set handler', () => {
             assert.isFunction(tester._handler);
@@ -45,8 +46,24 @@ describe('HandlerTester', () => {
         it('should set _queryStringParameters property', () => {
             const { limit, offset } = tester._queryStringParameters;
 
-            assert.equal(limit, 5);
-            assert.equal(offset, 15);
+            assert.strictEqual(limit, '5');
+            assert.strictEqual(offset, '15');
+        });
+
+        it('additional calls adds data', () => {
+            tester.queryStringParameters({ added: 4 });
+
+            const { limit, offset, added } = tester._queryStringParameters;
+
+            assert.strictEqual(limit, '5');
+            assert.strictEqual(offset, '15');
+            assert.strictEqual(added, '4');
+        });
+
+        it('null resets property', () => {
+            tester.queryStringParameters();
+
+            assert.strictEqual(tester._queryStringParameters, null);
         });
 
         it('should return instance of HandlerTester', () => {
@@ -62,10 +79,22 @@ describe('HandlerTester', () => {
         });
 
         it('should set _body property', () => {
-            const { statusCode, data } = tester._body;
+            const { statusCode, data } = JSON.parse(tester._body);
 
             assert.equal(statusCode, 200);
             assert.equal(data, 'some data');
+        });
+
+        it('null resets property', () => {
+            tester.body();
+
+            assert.strictEqual(tester._body, null);
+        });
+
+        it('string is set as string', () => {
+            tester.body('hello');
+
+            assert.strictEqual(tester._body, 'hello');
         });
 
         it('should return instance of HandlerTester', () => {
@@ -86,12 +115,27 @@ describe('HandlerTester', () => {
             assert.equal(path, 'param');
         });
 
+        it('null resets property', () => {
+            tester.pathParameters();
+
+            assert.strictEqual(tester._pathParameters, null);
+        });
+
         it('should return instance of HandlerTester', () => {
             assert.equal(result.constructor.name, 'HandlerTester');
         });
     });
 
-    describe('expect', () => {
+    describe('request', () => {
+
+        it('verifies request', async () => {
+            const res = await tester.verify();
+
+            const { body, statusCode } = res;
+
+            assert.strictEqual(body.username, 'mtakac');
+            assert.strictEqual(statusCode, 200);
+        });
 
     });
 });

@@ -2,7 +2,7 @@
 
 const { assert } = require('chai');
 
-const ApiBlueprint = require('../../lib/apiBlueprint');
+const ApiBlueprint = require('../../lib/ApiBlueprint');
 
 describe('Api blueprint', () => {
     describe('constructor', () => {
