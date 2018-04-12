@@ -15,8 +15,8 @@ const beginning = readme.split(separator)[0];
 const apiDoc = jsdoc2md.renderSync({
     'example-lang': 'javascript',
     files: [
-        'lib/HandlerTester.js',
-        'lib/LambdaTest.js'
+        'lib/LambdaTest.js',
+        'lib/HandlerTester.js'
     ]
 });
 
